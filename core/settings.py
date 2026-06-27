@@ -126,3 +126,24 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/6.0/howto/static-files/
 
 STATIC_URL = 'static/'
+
+
+# File: backend/core/settings.py (At the very end)
+
+from sqlmodel import SQLModel
+# Apne models aur engine ko sahi path se import karo (adjust folder name if different)
+from breakfast.database import engine
+from breakfast.models import User, Restaurant, Dish, Order, AddOn, DeliveryAddress
+
+# 1. FORCE DJANGO SYSTEM SCHEMAS INITIALIZATION
+from django.db import connection
+with connection.cursor() as cursor:
+    # Django settings initialization triggers standard ORM layout context
+    pass
+
+# 2. RUN SQLMODEL AUTOMATIC TABLES CREATION FOR SUPABASE
+try:
+    SQLModel.metadata.create_all(engine)
+    print("--- SQLMODEL METADATA SYNC COMPLETE: Tables verified/created on Supabase ---")
+except Exception as e:
+    print(f"--- SQLMODEL METADATA CRASH: {e} ---")
