@@ -2,15 +2,13 @@
 import os
 from dotenv import load_dotenv
 from sqlmodel import SQLModel, create_engine, Session
+from models import *
 
 load_dotenv()
 
 DATABASE_URL = os.getenv("DATABASE_URL")
 
 engine = create_engine(DATABASE_URL, echo=True, pool_pre_ping=True)
-
-# Force load all cross-references compile checks
-from models import Restaurant, Dish, AddOn, Order, MaterialRequirement, User, DeliveryAddress
 
 def init_db():
     # Force evaluate all relational strings constraints mappings inside registry
