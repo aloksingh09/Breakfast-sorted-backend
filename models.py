@@ -1,6 +1,6 @@
 # File: backend/models.py
 from typing import List, Optional
-from sqlmodel import SQLModel, Field, Relationship
+from sqlmodel import SQLModel, Field, Relationship, JSON
 from datetime import datetime
 
 class Restaurant(SQLModel, table=True):
@@ -29,6 +29,7 @@ class Dish(SQLModel, table=True):
     price: float = Field(nullable=False)
     discount_price: Optional[float] = None
     is_available: bool = Field(default=True)
+    addon_ids: List[int] = Field(default=[], sa_type=JSON)
 
     restaurant: Optional[Restaurant] = Relationship(back_populates="dishes")
 

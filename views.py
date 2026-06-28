@@ -228,7 +228,7 @@ def login_gateway(request):
                     "name": db_user.name,
                     "user_id": db_user.id
                 })
-            return JsonResponse({"error": "Bad credentials check sequence mapping inputs."}, status=401)
+            return JsonResponse({"error": "Bad credentials please check your credentials."}, status=401)
 
 # --- USER DELIVERY REPOSITORIES ADDRESS POST/GET CONTROLLERS ---
 @csrf_exempt
