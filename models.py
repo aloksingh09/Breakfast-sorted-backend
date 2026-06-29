@@ -73,6 +73,7 @@ class Order(SQLModel, table=True):
     total_price: float = Field(nullable=False)
     payment_method: str = Field(default="COD")
     status: str = Field(default="Pending")
+    delivery_time: Optional[str] = None
     created_at: datetime = Field(default_factory=datetime.utcnow)
 
     restaurant: Optional[Restaurant] = Relationship(back_populates="orders")

@@ -142,7 +142,8 @@ def handle_orders(request):
                 pincode=data['pincode'],
                 total_price=data['total_price'],
                 payment_method=data['payment_method'],
-                status=data['status']
+                status=data['status'],
+                delivery_time=data.get('delivery_time', "Not Specified")
             )
             session.add(new_order)
             session.commit()
@@ -155,6 +156,7 @@ def handle_orders(request):
             db_order = session.get(Order, order_id)
             if db_order:
                 db_order.status = data.get('status', db_order.status)
+                db_order.delivery_time = data.get('delivery_time', db_order.delivery_time)
                 session.add(db_order)
                 session.commit()
                 session.refresh(db_order)
